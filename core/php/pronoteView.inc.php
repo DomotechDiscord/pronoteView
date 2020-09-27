@@ -23,3 +23,6 @@ require_once __DIR__  . '/../../../../core/php/core.inc.php';
  * 
  */
 
+include_file('core', 'pronoteView_notes', 'class', 'pronoteView');
+include_file('core', 'pronoteView_utils', 'class', 'pronoteView');
+include_file('core', 'pronoteView_panel', 'class', 'pronoteView');

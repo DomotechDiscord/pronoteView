@@ -18,6 +18,7 @@
 
 /* * ***************************Includes********************************* */
 require_once __DIR__  . '/../../../../core/php/core.inc.php';
+require_once dirname(__FILE__) . '/../../core/php/pronoteView.inc.php';
 
 class pronoteView extends eqLogic {
     /*     * *************************Attributs****************************** */
@@ -98,12 +99,13 @@ class pronoteView extends eqLogic {
 
  // Fonction exécutée automatiquement avant la sauvegarde (création ou mise à jour) de l'équipement 
     public function preSave() {
-        
+
     }
 
  // Fonction exécutée automatiquement après la sauvegarde (création ou mise à jour) de l'équipement 
     public function postSave() {
-        
+        self::createcmd($this);
+        self::updateHTML($this);
     }
 
  // Fonction exécutée automatiquement avant la suppression de l'équipement 
@@ -116,13 +118,56 @@ class pronoteView extends eqLogic {
         
     }
 
+    function createcmd($eqlogic) {
+        $pronoteViewCmd = $eqlogic->getCmd(null, "htmlCode");
+        if (!is_object($pronoteViewCmd) ) {
+            $pronoteViewCmd = new pronotlinkCmd();
+        }
+        $pronoteViewCmd->setName("htmlCode");
+        $pronoteViewCmd->setEqLogic_id($eqlogic->getId());
+        $pronoteViewCmd->setType("info");
+        $pronoteViewCmd->setSubType("string");
+        $pronoteViewCmd->setLogicalId("htmlCode");
+        $pronoteViewCmd->setEventOnly(1);
+        $pronoteViewCmd->setIsVisible(0);
+        $pronoteViewCmd->setDisplay('generic_type','GENERIC_INFO');
+        $pronoteViewCmd->save();
+    }
+
+    function updateHTML($eqLogic) {
+        if ($eqLogic->getIsEnable() != 1) return;
+        if ($eqLogic->getconfiguration('idequip', 0) == 0) return;
+
+        switch ($eqLogic->getconfiguration("type_widget", 1)) {
+            case 1:
+                pronoteView_notes::htmlNotesByDays($eqLogic);
+                break;
+        }
+
+
+    }
     /*
-     * Non obligatoire : permet de modifier l'affichage du widget (également utilisable par les commandes)
+     * Non obligatoire : permet de modifier l'affichage du widget (également utilisable par les commandes)*/
       public function toHtml($_version = 'dashboard') {
-
+          $replace = $this->preToHtml($_version, array(), true);
+          if (!is_array($replace)) {
+              return $replace;
+          }
+          $version = jeedom::versionAlias($_version);
+          $replace['#width#'] = $this->getDisplay('width', 'auto');
+          $replace['#height#'] = $this->getDisplay('height', 'auto');
+          $replace['#cmd#'] = $this->toHtmlCmd($_version,  false, $this);
+          $templ = getTemplate('core', $version, 'main', 'pronoteView');
+          return $this->postToHtml($_version, template_replace($replace, $templ));
       }
-     */
 
+    public function toHtmlCmd($_version = 'dashboard', $transparent = false, $eqlogic) {
+        $pronoteViewCmd = $eqlogic->getCmd(null, "htmlCode");
+        $html = $pronoteViewCmd->execCmd();
+        return ' <div class="code">
+			'.$html.'
+			</div> ';
+    }
     /*
      * Non obligatoire : permet de déclencher une action après modification de variable de configuration
     public static function postConfig_<Variable>() {
