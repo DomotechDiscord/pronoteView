@@ -32,7 +32,7 @@ class pronoteView_notes
         $NoteByDate = pronoteView_panel::getinfo($idEquiPronote, 'NoteByDate');
         if (!(!$NoteByDate || !is_array($NoteByDate))) {
             $html .= '<div class="card"><div class="face front">';
-            $html .='<div class="widget-header-pronoteView"><i class="icon-bar-chart"></i><h3>Dernière(s) note(s)</h3>';
+            $html .= '<div class="widget-header-pronoteView"><i class="icon-bar-chart"></i><h3>Dernière(s) note(s)</h3>';
             $html .= '</div><div style="height:100%;" class="widget-content-pronoteView">';
             $html .= '<div style="width: 100%; height: 100%;"><div class="box-body no-padding">';
             $html .= '<table style="width: 100%; height: 100%;"><tbody><tr valign="top"><td class="tableauentete">Matière : </td><td class="tableauentete">Date : </td><td class="tableauentete">Note : </td></tr>';

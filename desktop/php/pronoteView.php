@@ -115,6 +115,7 @@ foreach ($eqLogics as $eqLogic) {
                 <div class="col-sm-3">
                     <select id="consoWidget_type"  class="eqLogicAttr configuration form-control" data-l1key="configuration" data-l2key="type_widget">
                         <option value="1">{{Notes par Date}}</option>
+                        <option value="2">{{Futur Devoirs}}</option>
                     </select>
                 </div>
             </div>

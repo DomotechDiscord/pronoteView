@@ -47,7 +47,6 @@ class pronoteView extends eqLogic {
      * Fonction exécutée automatiquement toutes les 10 minutes par Jeedom
       public static function cron10() {
       }
-     */
     
     /*
      * Fonction exécutée automatiquement toutes les 15 minutes par Jeedom
@@ -62,10 +61,14 @@ class pronoteView extends eqLogic {
      */
     
     /*
-     * Fonction exécutée automatiquement toutes les heures par Jeedom
-      public static function cronHourly() {
+     * Fonction exécutée automatiquement toutes les heures par Jeedom*/
+      public static function cronHourly()
+      {
+          $eqLogics = eqLogic::byType("pronoteView");
+          foreach ($eqLogics as $eqLogic) {
+              self::updateHTML($eqLogic);
+          }
       }
-     */
 
     /*
      * Fonction exécutée automatiquement tous les jours par Jeedom
@@ -141,6 +144,9 @@ class pronoteView extends eqLogic {
         switch ($eqLogic->getconfiguration("type_widget", 1)) {
             case 1:
                 pronoteView_notes::htmlNotesByDays($eqLogic);
+                break;
+            case 2:
+                pronoteView_devoirs::htmldevoirs($eqLogic);
                 break;
         }
 
