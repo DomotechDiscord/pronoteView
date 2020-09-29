@@ -88,4 +88,21 @@ class pronoteView_utils
         }
         return $_evalicon;
     }
+
+    function sendVarToJSString($_varName, $_value='') {
+        if (!is_array($_varName)) {
+            $_varName = [$_varName => $_value];
+        }
+        $jsVar = '<script>';
+        foreach ($_varName as $name => $value) {
+            $value = (is_array($value)) ? 'jQuery.parseJSON("' . addslashes(json_encode($value, JSON_UNESCAPED_UNICODE)) . '")'	: '"' . $value . '"';
+            if (strpos($name,'.') === false) {
+                $jsVar .= 'var ' . $name . ' = ' . $value . "\n";
+            } else {
+                $jsVar .= $name . ' = ' . $value . "\n";
+            }
+        }
+        $jsVar .= '</script>';
+        return $jsVar;
+    }
 }

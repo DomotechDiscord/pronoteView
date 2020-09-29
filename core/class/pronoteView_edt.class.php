@@ -52,10 +52,21 @@ class pronoteView_edt
             $cour = array('title' => $name, 'start'=>$start, 'end'=>$end, 'color' => $color);
             array_push($cours, $cour);
         }
+        $varName = 'cours7D_'.$idEquiPronote;
+        $divID = 'calendrier7Day_'.$idEquiPronote;
 
-        sendVarToJS('cours7D'.$idEquiPronote, $cours);
-        $html .= '<script>var "cours7D_'.$idEquiPronote.'" = jQuery.parseJSON("'.json_encode($cours).'")</script>';
-        $html .= '<div id="div_DashboardAlert" style="display: none;"></div><div id="calendrier7Day"></div></div>';
+        $html .= '<link rel="stylesheet" href="/plugins/pronotlink/3rdparty/fullcalendar/core/main.css"></link>';
+        $html .= '<link rel="stylesheet" href="/plugins/pronotlink/3rdparty/fullcalendar/daygrid/main.css"></link>';
+        $html .= '<link rel="stylesheet" href="/plugins/pronotlink/3rdparty/fullcalendar/timegrid/main.css"></link>';
+        $html .= '<link rel="stylesheet" href="/plugins/pronotlink/3rdparty/fullcalendar/bootstrap/main.css"></link>';
+        $html .= '<script type="text/javascript" src="/plugins/pronotlink/3rdparty/fullcalendar/core/main.js"></script>';
+        $html .= '<script type="text/javascript" src="/plugins/pronotlink/3rdparty/fullcalendar/daygrid/main.js"></script>';
+        $html .= '<script type="text/javascript" src="/plugins/pronotlink/3rdparty/fullcalendar/timegrid/main.js"></script>';
+        $html .= '<script type="text/javascript" src="/plugins/pronotlink/3rdparty/fullcalendar/bootstrap/main.js"></script>';
+        $html .= '<script type="text/javascript" src="/plugins/pronoteView/desktop/js/edt7Day.js"></script>';
+        $html .= pronoteView_utils::sendVarToJSString($varName, $cours);
+        $html .= '<script>func_note_button("'.$divID.'","'.$varName.'");</script>';
+        $html .= '<div id="div_DashboardAlert" style="display: none;"></div><div id="'.$divID.'"></div></div>';
         $html .= '</div></div></div></div></div></div></div>';
 
         $pronoteViewCmd = $eqlogic->getCmd(null, "htmlCode");
