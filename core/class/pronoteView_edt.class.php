@@ -30,6 +30,32 @@ class pronoteView_edt
         $html .= '<div class="card"><div class="face front">';
         $html .= '<div class="widget-header-pronoteView"><i class="icon-bar-chart"></i><h3>Emploi du temps</h3>';
         $html .= '</div><div style="width: 100%; height: 100%;" class="widget-content-pronoteView"><div style="width: 100%; height: 100%;"><div class="box-body no-padding">';
+
+        $varName = 'cours7D_'.$idEquiPronote;
+        $divID = 'calendrier7Day_'.$idEquiPronote;
+
+        $html .= '<link rel="stylesheet" href="/plugins/pronotlink/3rdparty/fullcalendar/core/main.css"></link>';
+        $html .= '<link rel="stylesheet" href="/plugins/pronotlink/3rdparty/fullcalendar/daygrid/main.css"></link>';
+        $html .= '<link rel="stylesheet" href="/plugins/pronotlink/3rdparty/fullcalendar/timegrid/main.css"></link>';
+        $html .= '<link rel="stylesheet" href="/plugins/pronotlink/3rdparty/fullcalendar/bootstrap/main.css"></link>';
+        $html .= '<script type="text/javascript" src="/plugins/pronotlink/3rdparty/fullcalendar/core/main.js"></script>';
+        $html .= '<script type="text/javascript" src="/plugins/pronotlink/3rdparty/fullcalendar/daygrid/main.js"></script>';
+        $html .= '<script type="text/javascript" src="/plugins/pronotlink/3rdparty/fullcalendar/timegrid/main.js"></script>';
+        $html .= '<script type="text/javascript" src="/plugins/pronotlink/3rdparty/fullcalendar/bootstrap/main.js"></script>';
+        $html .= '<script type="text/javascript" src="/plugins/pronoteView/desktop/js/edt7Day.js"></script>';
+        $html .= '<div id="div_DashboardAlert" style="display: none;"></div><div id="'.$divID.'"></div></div>';
+        $html .= '</div></div></div></div></div></div></div>';
+        $html .= '<script type="text/javascript">func_get_AjaxEdt("'.$divID.'","'.$idEquiPronote.'")</script>';
+
+        $pronoteViewCmd = $eqlogic->getCmd(null, "htmlCode");
+        $pronoteViewCmd->event($html);
+        $pronoteViewCmd->save();
+    }
+
+    function ajaxEDT($eqlogic) {
+        $idEquiPronote = $eqlogic->getID();
+        if ($idEquiPronote == 0) return;
+
         $cours = array();
         $timetables = pronoteView_panel::getinfo($idEquiPronote, 'timetable');
 
@@ -52,25 +78,7 @@ class pronoteView_edt
             $cour = array('title' => $name, 'start'=>$start, 'end'=>$end, 'color' => $color);
             array_push($cours, $cour);
         }
-        $varName = 'cours7D_'.$idEquiPronote;
-        $divID = 'calendrier7Day_'.$idEquiPronote;
 
-        $html .= '<link rel="stylesheet" href="/plugins/pronotlink/3rdparty/fullcalendar/core/main.css"></link>';
-        $html .= '<link rel="stylesheet" href="/plugins/pronotlink/3rdparty/fullcalendar/daygrid/main.css"></link>';
-        $html .= '<link rel="stylesheet" href="/plugins/pronotlink/3rdparty/fullcalendar/timegrid/main.css"></link>';
-        $html .= '<link rel="stylesheet" href="/plugins/pronotlink/3rdparty/fullcalendar/bootstrap/main.css"></link>';
-        $html .= '<script type="text/javascript" src="/plugins/pronotlink/3rdparty/fullcalendar/core/main.js"></script>';
-        $html .= '<script type="text/javascript" src="/plugins/pronotlink/3rdparty/fullcalendar/daygrid/main.js"></script>';
-        $html .= '<script type="text/javascript" src="/plugins/pronotlink/3rdparty/fullcalendar/timegrid/main.js"></script>';
-        $html .= '<script type="text/javascript" src="/plugins/pronotlink/3rdparty/fullcalendar/bootstrap/main.js"></script>';
-        $html .= '<script type="text/javascript" src="/plugins/pronoteView/desktop/js/edt7Day.js"></script>';
-        $html .= pronoteView_utils::sendVarToJSString($varName, $cours);
-        $html .= '<script>func_note_button("'.$divID.'","'.$varName.'");</script>';
-        $html .= '<div id="div_DashboardAlert" style="display: none;"></div><div id="'.$divID.'"></div></div>';
-        $html .= '</div></div></div></div></div></div></div>';
-
-        $pronoteViewCmd = $eqlogic->getCmd(null, "htmlCode");
-        $pronoteViewCmd->event($html);
-        $pronoteViewCmd->save();
+        return $cours;
     }
 }
