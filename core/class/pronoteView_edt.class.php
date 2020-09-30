@@ -23,7 +23,7 @@ class pronoteView_edt
 {
     function htmledt7day($eqlogic)
     {
-        $idEquiPronote = $eqlogic->getconfiguration('idequip', 0);
+        $idEquiPronote = $eqlogic->getId();
         if ($idEquiPronote == 0) return;
         $html = "";
 
@@ -53,7 +53,7 @@ class pronoteView_edt
     }
 
     function ajaxEDT($eqlogic) {
-        $idEquiPronote = $eqlogic->getID();
+        $idEquiPronote = $eqlogic->getconfiguration('idequip', 0);
         if ($idEquiPronote == 0) return;
 
         $cours = array();
@@ -79,6 +79,7 @@ class pronoteView_edt
             array_push($cours, $cour);
         }
 
-        return $cours;
+        $result = array('height'=>$eqlogic->getDisplay('height', 'auto'), 'EDT'=>$cours);
+        return $result;
     }
 }

@@ -1,4 +1,4 @@
-function func_get_EDT7D(div, cours) {
+function func_get_EDT7D(div, cours, height) {
     let elementCalendrier7Day = document.getElementById(div);
 
     let calendrier7Day = new FullCalendar.Calendar(elementCalendrier7Day, {
@@ -31,7 +31,7 @@ function func_get_EDT7D(div, cours) {
         minTime: "08:00:00",
         maxTime: "19:00:00",
         slotDuration: "00:15:00",
-        contentHeight: "auto",
+        contentHeight: height,
         windowResizeDelay: 1500
     });
     calendrier7Day.render();
@@ -51,7 +51,15 @@ function func_get_AjaxEdt(div, idEquiPronote) {
             handleAjaxError(request, status, error, $('#div_VerifParam'));
         },
         success: function (data) {
-            func_get_EDT7D(div, data.result);
+            var height = data.result.height
+            if (height !== "auto") {
+                console.log("coucou")
+                height = parseInt(height);
+                height = height-(height/10);
+            }
+            console.log(height);
+            func_get_EDT7D(div, data.result.EDT,height);
+            console.log(data)
         }
     });
 }
