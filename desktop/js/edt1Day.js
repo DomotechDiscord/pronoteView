@@ -1,7 +1,7 @@
-function func_get_EDT7D(div, cours, height) {
-    let elementCalendrier7Day = document.getElementById(div);
+function func_get_EDT1D(div, cours, height) {
+    let elementCalendrier1Day = document.getElementById(div);
 
-    let calendrier7Day = new FullCalendar.Calendar(elementCalendrier7Day, {
+    let calendrier1Day = new FullCalendar.Calendar(elementCalendrier1Day, {
         plugins: ['dayGrid', 'timeGrid', 'bootstrap'],
         themeSystem: 'bootstrap',
         bootstrapFontAwesome: {
@@ -11,7 +11,7 @@ function func_get_EDT7D(div, cours, height) {
             prevYear: 'fa-angle-double-left',
             nextYear: 'fa-angle-double-right'
         },
-        defaultView: 'timeGridWeek',
+        defaultView: 'timeGridDay',
         locale: 'fr',
         header: {
             left: 'today',
@@ -34,11 +34,11 @@ function func_get_EDT7D(div, cours, height) {
         contentHeight: height,
         windowResizeDelay: 1500
     });
-    calendrier7Day.render();
-    calendrier7Day.updateSize();
+    calendrier1Day.render();
+    calendrier1Day.updateSize();
 }
 
-function func_get_AjaxEdt7(div, idEquiPronote) {
+function func_get_AjaxEdt1(div, idEquiPronote) {
    $.ajax({
         type: 'POST',
         url: 'plugins/pronoteView/core/ajax/pronoteView.ajax.php',
@@ -56,7 +56,7 @@ function func_get_AjaxEdt7(div, idEquiPronote) {
                 height = parseInt(height);
                 height = height-(height/10);
             }
-            func_get_EDT7D(div, data.result.EDT,height);
+            func_get_EDT1D(div, data.result.EDT,height);
         }
     });
 }
