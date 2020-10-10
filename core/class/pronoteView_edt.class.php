@@ -45,7 +45,38 @@ class pronoteView_edt
         $html .= '<script type="text/javascript" src="/plugins/pronoteView/desktop/js/edt7Day.js"></script>';
         $html .= '<div id="div_DashboardAlert" style="display: none;"></div><div id="'.$divID.'"></div></div>';
         $html .= '</div></div></div></div></div></div></div>';
-        $html .= '<script type="text/javascript">func_get_AjaxEdt("'.$divID.'","'.$idEquiPronote.'")</script>';
+        $html .= '<script type="text/javascript">func_get_AjaxEdt7("'.$divID.'","'.$idEquiPronote.'")</script>';
+
+        $pronoteViewCmd = $eqlogic->getCmd(null, "htmlCode");
+        $pronoteViewCmd->event($html);
+        $pronoteViewCmd->save();
+    }
+
+    function htmledt1day($eqlogic)
+    {
+        $idEquiPronote = $eqlogic->getId();
+        if ($idEquiPronote == 0) return;
+        $html = "";
+
+        $html .= '<div class="card"><div class="face front">';
+        $html .= '<div class="widget-header-pronoteView"><i class="icon-bar-chart"></i><h3>Emploi du temps</h3>';
+        $html .= '</div><div style="width: 100%; height: 100%;" class="widget-content-pronoteView"><div style="width: 100%; height: 100%;"><div class="box-body no-padding">';
+
+        $varName = 'cours1D_'.$idEquiPronote;
+        $divID = 'calendrier1Day_'.$idEquiPronote;
+
+        $html .= '<link rel="stylesheet" href="/plugins/pronotlink/3rdparty/fullcalendar/core/main.css"></link>';
+        $html .= '<link rel="stylesheet" href="/plugins/pronotlink/3rdparty/fullcalendar/daygrid/main.css"></link>';
+        $html .= '<link rel="stylesheet" href="/plugins/pronotlink/3rdparty/fullcalendar/timegrid/main.css"></link>';
+        $html .= '<link rel="stylesheet" href="/plugins/pronotlink/3rdparty/fullcalendar/bootstrap/main.css"></link>';
+        $html .= '<script type="text/javascript" src="/plugins/pronotlink/3rdparty/fullcalendar/core/main.js"></script>';
+        $html .= '<script type="text/javascript" src="/plugins/pronotlink/3rdparty/fullcalendar/daygrid/main.js"></script>';
+        $html .= '<script type="text/javascript" src="/plugins/pronotlink/3rdparty/fullcalendar/timegrid/main.js"></script>';
+        $html .= '<script type="text/javascript" src="/plugins/pronotlink/3rdparty/fullcalendar/bootstrap/main.js"></script>';
+        $html .= '<script type="text/javascript" src="/plugins/pronoteView/desktop/js/edt1Day.js"></script>';
+        $html .= '<div id="div_DashboardAlert" style="display: none;"></div><div id="'.$divID.'"></div></div>';
+        $html .= '</div></div></div></div></div></div></div>';
+        $html .= '<script type="text/javascript">func_get_AjaxEdt1("'.$divID.'","'.$idEquiPronote.'")</script>';
 
         $pronoteViewCmd = $eqlogic->getCmd(null, "htmlCode");
         $pronoteViewCmd->event($html);

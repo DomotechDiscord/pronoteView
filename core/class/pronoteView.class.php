@@ -152,6 +152,9 @@ class pronoteView extends eqLogic {
             case 3:
                 pronoteView_edt::htmledt7day($eqLogic);
                 break;
+            case 4 :
+                pronoteView_edt::htmledt1day($eqLogic);
+                break;
         }
 
 
