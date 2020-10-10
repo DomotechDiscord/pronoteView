@@ -79,7 +79,7 @@ class pronoteView_utils
             return '<svg style="width:20px;height:20px;"><circle cx="50%" cy="50%" r="9px" stroke-width="2px" fill="#0040FF" stroke="#0040FF"></circle></svg>';
         } else if ($_evalicon == "Nr") {
             return '<svg style="width:20px;height:20px;"><circle cx="50%" cy="50%" r="9px" stroke-width="2px" fill="#F06246" stroke="#F06246"></circle></svg>';
-        } else if ($_evalicon == "NE") {
+        } else if ($_evalicon == "NE" || $_evalicon = "Ne") {
             return '<svg style="width:20px;height:20px;"><circle cx="50%" cy="50%" r="9px" stroke-width="2px" fill="#FFFFFF" stroke="#FFFFFF"></circle></svg>';
         } else if ($_evalicon == "Dsp") {
             return '<svg style="width:20px;height:20px;"><circle cx="50%" cy="50%" r="9px" stroke-width="2px" fill="#04F4D4" stroke="#04F4D4"></circle></svg>';
