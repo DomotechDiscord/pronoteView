@@ -22,5 +22,8 @@ require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
   function pronoteView_pre_update() {
 
   }
-  
+
+
+
+
 ?>
