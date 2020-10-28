@@ -1,0 +1,49 @@
+.widget-header-pronoteView {
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    background: var(--form-bg-color);; /* Chrome10+,Safari5.1+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f6f1', endColorstr='#f2efea');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f6f1', endColorstr='#f2efea')";
+    border: 1px solid #d6d6d6;
+    -webkit-background-clip: padding-box;
+}
+
+.widget-header-pronoteView+.widget-content-pronoteView {
+    border-top: none;
+    -webkit-border-top-left-radius: 0;
+    -webkit-border-top-right-radius: 0;
+    -moz-border-radius-topleft: 0;
+    -moz-border-radius-topright: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.widget-content-pronoteView {
+    background: rgba(var(--panel-bg-color), var(--opacity));
+    border: 1px solid #d5d5d5;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.widget-header-pronoteView h3 {
+    position: relative;
+    top: 2px;
+    left: 10px;
+    display: inline-block;
+    margin-right: 2em;
+    font-size: 14px;
+    font-weight: 800;
+    color: rgb(var(--txt-color));
+    line-height: 18px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align: left !important;
+}
+
+.tableauentete {
+    background: var(--form-bg-color);
+    line-height: 35px;
+    padding:1px;
+    text-align:left;
+}

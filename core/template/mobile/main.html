@@ -1,0 +1,73 @@
+<div class="eqLogic eqLogic-widget" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="#version#" style="margin:0px;border:#border#;border-radius:#border-radius#;background-color: #background-color#;color: #text-color#; width:#width#; height:#height#;  #style#" data-category="#category#">
+	<span class="pull-left" style="margin-top: 3px;margin-left: 3px;" title="#alert_name#">
+		<i class='#alert_icon#'></i>
+	</span>
+	<span class="cmd refresh pull-right cursor" data-cmd_id="#refresh_id#" style="margin-top: 3px;margin-right: 3px; position: relative; z-index: 2;">
+		<i class='fa fa-refresh'></i>
+		<i class="fa fa-minus"></i>
+		<i class="fa fa-plus"></i>
+	</span>
+	<span class="statusCmd" style="position : absolute;left : 5px; width : 30px;"></span>
+	<center>
+		<span class="widget-name" style="position: relative; z-index: 1;">
+			<span style="#hideEqLogicName#">#name_display# <span style="font-size: 0.85em;">#object_name#</span></span><br/>
+		</span>
+		<div style="padding: 5px;">
+			#cmd#
+		</div>
+	</center>
+</div>
+
+
+<script>
+		var toppx;
+		var leftpx;
+		var widthpx;
+		$(".eqLogic[data-eqLogic_uid=#uid#] .fa-plus").click(function(){
+			toppx = $(".eqLogic[data-eqLogic_uid=#uid#]").position().top;
+			leftpx = $(".eqLogic[data-eqLogic_uid=#uid#]").position().left;
+			widthpx = $(".eqLogic[data-eqLogic_uid=#uid#]").width();
+			
+			$(".eqLogic[data-eqLogic_uid=#uid#] .fa-plus").hide();
+			$(".eqLogic[data-eqLogic_uid=#uid#] .fa-minus").show();
+			$(".eqLogic[data-eqLogic_uid=#uid#]").width("100%");
+			$(".eqLogic[data-eqLogic_uid=#uid#]").height("100%");
+			$(".eqLogic[data-eqLogic_uid=#uid#]").css({"position": "fixed","z-index" : "9999" , "top" : "0px", "left" : "0px"});
+		});
+		$(".eqLogic[data-eqLogic_uid=#uid#] .fa-minus").click(function(){
+			$(".eqLogic[data-eqLogic_uid=#uid#] .fa-minus").hide();
+			$(".eqLogic[data-eqLogic_uid=#uid#] .fa-plus").show();
+			$(".eqLogic[data-eqLogic_uid=#uid#]").height("#height#");
+			$(".eqLogic[data-eqLogic_uid=#uid#]").width(widthpx);
+			$(".eqLogic[data-eqLogic_uid=#uid#]").css({"position": "absolute","z-index" : "0" ,"top" : toppx+"px","left" : leftpx+"px"});
+		});
+
+		function refresh#uid#(){
+			jeedom.cmd.execute({id: "#refresh_id#",
+				success:  function(result) {
+							$(".eqLogic[data-eqLogic_uid=#uid#] .code").html(result);
+                                                }});
+		}
+
+		$(".eqLogic[data-eqLogic_uid=#uid#] .fa-refresh").click(refresh#uid#); 
+
+
+		$(".eqLogic[data-eqLogic_uid=#uid#] .fa-minus").hide();
+		$(".eqLogic[data-eqLogic_uid=#uid#] .fa-plus").show();
+		
+		#timer#
+
+		function consoWidget_proxy(url){
+			return "/plugins/consoWidget/core/class/proxy/proxy/miniProxy.php?"+url;
+		}
+
+		function consoWidget_cmd(id, value=null){
+			jeedom.cmd.execute({"id":id, "value": value});	
+		}
+		function consoWidget_startScenario(id){
+			jeedom.scenario.changeState({"id": id, "state": "start"});
+		}
+		function consoWidget_stopScenario(id){
+			jeedom.scenario.changeState({"id": id, "state": "stop"});
+		}
+</script>

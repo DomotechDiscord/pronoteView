@@ -2,7 +2,7 @@
 if (!isConnect('admin')) {
 	throw new Exception('{{401 - Accès non autorisé}}');
 }
-$plugin = plugin::byId('template');
+$plugin = plugin::byId('pronoteView');
 sendVarToJS('eqType', $plugin->getId());
 $eqLogics = eqLogic::byType($plugin->getId());
 ?>
@@ -22,7 +22,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
     <span>{{Configuration}}</span>
   </div>
   </div>
-  <legend><i class="fas fa-table"></i> {{Mes templates}}</legend>
+  <legend><i class="fas fa-table"></i> {{Mes Vues}}</legend>
 	   <input class="form-control" placeholder="{{Rechercher}}" id="in_searchEqlogic" />
 <div class="eqLogicThumbnailContainer">
     <?php
@@ -48,7 +48,6 @@ foreach ($eqLogics as $eqLogic) {
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation"><a href="#" class="eqLogicAction" aria-controls="home" role="tab" data-toggle="tab" data-action="returnToThumbnailDisplay"><i class="fa fa-arrow-circle-left"></i></a></li>
     <li role="presentation" class="active"><a href="#eqlogictab" aria-controls="home" role="tab" data-toggle="tab"><i class="fas fa-tachometer-alt"></i> {{Equipement}}</a></li>
-    <li role="presentation"><a href="#commandtab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Commandes}}</a></li>
   </ul>
   <div class="tab-content" style="height:calc(100% - 50px);overflow:auto;overflow-x: hidden;">
     <div role="tabpanel" class="tab-pane active" id="eqlogictab">
@@ -56,10 +55,10 @@ foreach ($eqLogics as $eqLogic) {
     <form class="form-horizontal">
         <fieldset>
             <div class="form-group">
-                <label class="col-sm-3 control-label">{{Nom de l'équipement template}}</label>
+                <label class="col-sm-3 control-label">{{Nom de ma vue}}</label>
                 <div class="col-sm-3">
                     <input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
-                    <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement template}}"/>
+                    <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de ma vue}}"/>
                 </div>
             </div>
             <div class="form-group">
@@ -68,10 +67,10 @@ foreach ($eqLogics as $eqLogic) {
                     <select id="sel_object" class="eqLogicAttr form-control" data-l1key="object_id">
                         <option value="">{{Aucun}}</option>
                         <?php
-foreach (jeeObject::all() as $object) {
-	echo '<option value="' . $object->getId() . '">' . $object->getName() . '</option>';
-}
-?>
+                            foreach (jeeObject::all() as $object) {
+                                echo '<option value="' . $object->getId() . '">' . $object->getName() . '</option>';
+                            }
+                        ?>
                    </select>
                </div>
            </div>
@@ -94,12 +93,34 @@ foreach (jeeObject::all() as $object) {
 			<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isVisible" checked/>{{Visible}}</label>
 		</div>
 	</div>
-       <div class="form-group">
-        <label class="col-sm-3 control-label">{{template param 1}}</label>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">{{Équipement Pronote}}</label>
         <div class="col-sm-3">
-            <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="city" placeholder="param1"/>
+            <select id="consoWidget_type"  class="eqLogicAttr configuration form-control" data-l1key="configuration" data-l2key="idequip">
+                <?php
+                $eqLogicspronotlink = eqLogic::byType('pronotlink');
+
+                echo '<option selected value="">Non Config</option>';
+                foreach ($eqLogicspronotlink as $eqLogic) {
+                    if ($eqLogic->getIsEnable() == 1) {
+                        echo '<option value='.$eqLogic->getId().' >'.$eqLogic->getName().'</option>';
+                    }
+                }
+                ?>
+            </select>
         </div>
-    </div>
+        </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">{{Format vue}}</label>
+                <div class="col-sm-3">
+                    <select id="consoWidget_type"  class="eqLogicAttr configuration form-control" data-l1key="configuration" data-l2key="type_widget">
+                        <option value="1">{{Notes par Date}}</option>
+                        <option value="2">{{Future Devoirs}}</option>
+                        <option value="3">{{EDT 7 Day}}</option>
+                        <option value="4">{{EDT 1 Day}}</option>
+                    </select>
+                </div>
+            </div>
 </fieldset>
 </form>
 </div>
@@ -121,6 +142,6 @@ foreach (jeeObject::all() as $object) {
 </div>
 
 <!-- Inclusion du fichier javascript du plugin (dossier, nom_du_fichier, extension_du_fichier, nom_du_plugin) -->
-<?php include_file('desktop', 'template', 'js', 'template');?>
+<?php include_file('desktop', 'pronoteView', 'js', 'pronoteView');?>
 <!-- Inclusion du fichier javascript du core - NE PAS MODIFIER NI SUPPRIMER -->
 <?php include_file('core', 'plugin.template', 'js');?>

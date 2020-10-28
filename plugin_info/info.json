@@ -1,20 +1,20 @@
 {
-	"id" : "template",
-	"name" : "Template",
-	"description" : "Plugin template pour la création de plugin",
+	"id" : "pronoteView",
+	"name" : "Pronote View",
+	"description" : "Plugin de gestion et d'affichage des info de pronote",
 	"licence" : "AGPL",
-	"author" : "Jeedom SAS",
-	"require" : "3.2",
-	"category" : "programming",
+	"author" : "Thibaut.Trarbach",
+	"require" : "3.3",
+	"category" : "organization",
+	"display" : "panel",
 	"hasDependency" : false,
 	"hasOwnDeamon" : false,
 	"maxDependancyInstallTime" : 0,
-	"changelog" : "https://jeedom.github.io/plugin-template/#language#/changelog",
-	"documentation" : "https://jeedom.github.io/plugin-template/#language#/",
+	"changelog" : "https://domotechdiscord.github.io/Docs/pronoteView/fr_FR/changelog",
+	"documentation" : "https://domotechdiscord.github.io/Docs/pronoteView/fr_FR/",
 	"link" : {
-		"forum":"Lien vers le forum",
-		"video" : "Lien vers une video"
+		"forum":"https://community.jeedom.com/t/plugin-tiers-pronote-link-actualites/29464?u=titi_titi"
 	},
-	"language" : ["fr_FR","en_US","de_DE","sp_SP"],
-	"compatibility" : ["miniplus","smart","rpi","docker","diy","mobile","v4"]
+	"language" : ["fr_FR"],
+	"compatibility" : ["miniplus","smart","rpi","docker","diy","v4"]
 }
