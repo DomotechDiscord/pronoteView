@@ -43,8 +43,8 @@ class pronoteView_devoirs
                     $until = pronoteView_utils::stamptodate($homework['for']);
                     $html .= '<tr valign="top">';
                     $html .= '<td>' . $homework['subject'] . '</td>';
-                    $html .= '<td>' . $until . '</td>';
                     $html .= '<td>' . $homework['description'] . '</td>';
+                    $html .= '<td>' . $until . '</td>';
                     $html .= '</tr>';
                     $a++;
                 }
